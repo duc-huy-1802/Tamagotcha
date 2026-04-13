@@ -1,5 +1,4 @@
-let totalTime = 300;
-let timeRemaining = totalTime;
+let timeRemaining = 300;
 let timerInterval = null;
 
 const startBtn = document.getElementById('startBtn');
@@ -9,13 +8,10 @@ const setBtn = document.getElementById('setBtn');
 const timerDisplay = document.getElementById('timerDisplay');
 const customTimeInput = document.getElementById('customTime');
 
-// Prevent invalid input (non-numeric, decimals, 'e')
-customTimeInput.addEventListener('input', (e) => {
-  e.target.value = e.target.value.replace(/[^0-9]/g, '');
-  if (parseInt(e.target.value) > 180) {
-    e.target.value = '180';
-  }
-});
+// Settings
+const soundToggle = document.getElementById('soundToggle');
+const desktopToggle = document.getElementById('desktopToggle');
+const themeSelect = document.getElementById('themeSelect');
 
 startBtn.addEventListener('click', () => {
   if (!timerInterval) {
@@ -33,7 +29,7 @@ pauseBtn.addEventListener('click', () => {
 resetBtn.addEventListener('click', () => {
   clearInterval(timerInterval);
   timerInterval = null;
-  timeRemaining = totalTime;
+  timeRemaining = 300;
   updateDisplay();
   updateButtonStates();
 });
@@ -43,11 +39,16 @@ setBtn.addEventListener('click', () => {
   if (mins > 0) {
     clearInterval(timerInterval);
     timerInterval = null;
-    totalTime = mins * 60;
-    timeRemaining = totalTime;
+    timeRemaining = mins * 60;
     updateDisplay();
     updateButtonStates();
   }
+});
+
+themeSelect.addEventListener('change', async (e) => {
+  const theme = e.target.value;
+  await Storage.set('theme', theme);
+  applyTheme(theme);
 });
 
 function tick() {
@@ -75,12 +76,22 @@ function updateDisplay() {
 }
 
 function updateButtonStates() {
-  // Enable Start only if timer is NOT running
   startBtn.disabled = timerInterval !== null;
-  
-  // Enable Pause only if timer IS running
   pauseBtn.disabled = timerInterval === null;
 }
 
-// Initialize button states on load
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.body.classList.add('dark-theme');
+  } else {
+    document.body.classList.remove('dark-theme');
+  }
+}
+
+// Initialize
 updateButtonStates();
+(async () => {
+  const theme = await Storage.get('theme', 'light');
+  themeSelect.value = theme;
+  applyTheme(theme);
+})();
