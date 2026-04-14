@@ -1,41 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Screen Time Tamagotcha</title>
+  <link rel="stylesheet" href="../../src/styles/common.css">
   <link rel="stylesheet" href="popup.css">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>Focus Pet</h1>
-      <button id="options-btn" title="Dashboard">⛭</button>
-    </header>
-
-    <div class="pet-display">
-      <div id="status-indicator" class="status-badge">Happy</div>
-      <img id="pet-image" src="assets/pet_healthy.png" alt="Pet Avatar" />
-      <div class="health-bar-container">
-        <div id="health-bar" class="health-bar"></div>
+    <div id="authSection">
+      <div id="signedOut">
+        <button id="signInBtn" class="btn">Sign in with Google</button>
       </div>
-      <div class="health-text">Health: <span id="health-value">100</span>%</div>
-    </div>
-
-    <div class="timer-section">
-      <h2 id="timer-display">25:00</h2>
-      <p id="session-info">Ready to work?</p>
-      
-      <div class="controls" id="controls-idle">
-        <button id="start-work-btn" class="btn primary">Start Work Timer</button>
-        <button id="start-break-btn" class="btn secondary">Start Break Timer</button>
-      </div>
-
-      <div class="controls hidden" id="controls-active">
-        <button id="stop-timer-btn" class="btn danger">Stop Timer</button>
+      <div id="signedIn" style="display:none">
+        <p id="userName"></p>
+        <button id="signOutBtn" class="btn secondary">Sign Out</button>
       </div>
     </div>
+    <div class="timer-display" id="timerDisplay">5:00</div>
+    <div class="controls">
+      <button id="startBtn" class="btn">Start</button>
+      <button id="pauseBtn" class="btn" disabled>Pause</button>
+      <button id="resetBtn" class="btn">Reset</button>
+    </div>
+    <input type="number" id="customTime" placeholder="Minutes" min="1" max="180">
+    <button id="setBtn" class="btn secondary">Set Time</button>
   </div>
+  <script src="../../src/utils/timer.js"></script>
+  <script src="../../src/utils/storage.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
