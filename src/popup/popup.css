@@ -2,16 +2,14 @@
   width: 300px;
   padding: 20px;
   text-align: center;
-  background-color: #FFF3E4;
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-  border: 10px solid #FDE0BC;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px;
 }
 
 .timer-display {
   font-size: 48px;
   font-weight: bold;
-  color: #6D420A;
+  color: white;
   margin: 20px 0;
   font-family: 'Courier New', monospace;
   letter-spacing: 2px;
@@ -30,8 +28,8 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  background: #FDE0BC;
-  color: #6D420A;
+  background: white;
+  color: #667eea;
   transition: 0.3s;
 }
 
@@ -46,11 +44,10 @@
 }
 
 .btn.secondary {
-  background: #FFF3E4;
-  color: #6D420A;
+  background: rgba(255,255,255,0.2);
+  color: white;
   font-size: 12px;
-  padding: 8px 12px;
-  border: 3px solid #FDE0BC;
+  padding: 8px 16px;
 }
 
 input {
