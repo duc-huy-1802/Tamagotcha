@@ -8,6 +8,11 @@ const setBtn = document.getElementById('setBtn');
 const timerDisplay = document.getElementById('timerDisplay');
 const customTimeInput = document.getElementById('customTime');
 
+// Settings
+const soundToggle = document.getElementById('soundToggle');
+const desktopToggle = document.getElementById('desktopToggle');
+const themeSelect = document.getElementById('themeSelect');
+
 startBtn.addEventListener('click', () => {
   if (!timerInterval) {
     timerInterval = setInterval(tick, 1000);
@@ -40,6 +45,12 @@ setBtn.addEventListener('click', () => {
   }
 });
 
+themeSelect.addEventListener('change', async (e) => {
+  const theme = e.target.value;
+  await Storage.set('theme', theme);
+  applyTheme(theme);
+});
+
 function tick() {
   timeRemaining--;
   updateDisplay();
@@ -65,12 +76,22 @@ function updateDisplay() {
 }
 
 function updateButtonStates() {
-  // Enable Start only if timer is NOT running
   startBtn.disabled = timerInterval !== null;
-  
-  // Enable Pause only if timer IS running
   pauseBtn.disabled = timerInterval === null;
 }
 
-// Initialize button states on load
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.body.classList.add('dark-theme');
+  } else {
+    document.body.classList.remove('dark-theme');
+  }
+}
+
+// Initialize
 updateButtonStates();
+(async () => {
+  const theme = await Storage.get('theme', 'light');
+  themeSelect.value = theme;
+  applyTheme(theme);
+})();

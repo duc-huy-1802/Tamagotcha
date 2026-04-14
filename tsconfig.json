@@ -13,6 +13,6 @@
     "strictNullChecks": true,
     "resolveJsonModule": true
   },
-  "include": ["src", "Backend"],
+  "include": ["src", "Backend", "Extension/popup.js", "Extension/options.js", "Extension/config/firebase-config.ts"],
   "exclude": ["node_modules", "dist"]
 }
